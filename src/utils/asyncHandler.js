@@ -14,7 +14,7 @@
 
 function asyncHandler(func) {
   return function (req, res, next) {
-    Promise.resolve(func(req, res, next)).reject((error) => {
+    Promise.resolve(func(req, res, next)).catch((error) => {
       next(error);
       res
         .status(error.code || 500)
