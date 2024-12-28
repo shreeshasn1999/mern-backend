@@ -14,6 +14,7 @@
 
 function asyncHandler(func) {
   return function (req, res, next) {
+    console.log(req.body);
     Promise.resolve(func(req, res, next)).catch((error) => {
       next(error);
       res
