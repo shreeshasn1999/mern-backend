@@ -56,7 +56,7 @@ userSchema.pre('save', async function (next) {
 });
 
 userSchema.methods.isPasswordCorrect = async function (password) {
-  await bcrypt.compare(password, this.password);
+  return await bcrypt.compare(password, this.password);
 };
 
 // * JWT is a bearer token. Whoever bears it / has it is authenticated.
@@ -76,7 +76,7 @@ userSchema.methods.generateAccessToken = function () {
     }
   );
 };
-userSchema.methods.refreshAccessToken = function () {
+userSchema.methods.generateRefreshToken = function () {
   return jwt.sign(
     {
       _id: this._id,
