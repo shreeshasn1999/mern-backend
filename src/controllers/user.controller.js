@@ -422,7 +422,7 @@ const getUserChannelProfile = asyncHandler(async function (req, res) {
     );
 });
 
-const getUserHistory = asyncHandler(async function (req, res) {
+const getUserWatchHistory = asyncHandler(async function (req, res) {
   const user = await User.aggregate([
     {
       // _id:requ.user._id this is wrong because id given by mongoose has already converted to string
@@ -491,5 +491,5 @@ export {
   updateUserAvatar,
   updateUserCoverImage,
   getUserChannelProfile,
-  getUserHistory,
+  getUserWatchHistory,
 };
