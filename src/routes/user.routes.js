@@ -30,14 +30,17 @@ router.route('/login').post(loginUser);
 router.route('/logout').post(verifyJwt, logoutUser);
 router.route('/update-password').post(verifyJwt, changeCurrentPassword);
 router.route('/get-current-user').post(verifyJwt, getCurrentUser);
-router.route('/update-account-details').post(verifyJwt, updateAccountDetails);
+router.route('/update-account-details').patch(verifyJwt, updateAccountDetails);
+// middlewares are executed in sequence
+// because we need to be sure user is logged in
+// we move verification middleware to first
 router
   .route('/update-avatar')
-  .post(upload.single('avatar'), verifyJwt, updateUserAvatar);
+  .patch(verifyJwt, upload.single('avatar'), updateUserAvatar);
 
 router
   .route('/update-cover-image')
-  .post(upload.single('coverImage'), verifyJwt, updateUserCoverImage);
+  .patch(verifyJwt, upload.single('coverImage'), updateUserCoverImage);
 
 router.route('/refresh-token').post(refreshAccessToken);
 
