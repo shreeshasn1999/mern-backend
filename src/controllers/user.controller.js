@@ -26,7 +26,7 @@ async function generateAccessAndRefreshToken(userId) {
   }
 }
 
-const registerUser = asyncHandler(async function (req, res) {
+const registerUser = asyncHandler(async function(req, res) {
   //TODO: Take user details from frontend
   const { username, email, fullName, password } = req.body;
   console.log('username: ', username);
@@ -105,7 +105,7 @@ const registerUser = asyncHandler(async function (req, res) {
     .json(new ApiResponse(200, createdUser, 'User registered successfully'));
 });
 
-const loginUser = asyncHandler(async function (req, res) {
+const loginUser = asyncHandler(async function(req, res) {
   // TODO: take details from frontend
   const { username, email, password } = req.body;
   // TODO: validation
@@ -155,7 +155,7 @@ const loginUser = asyncHandler(async function (req, res) {
     );
 });
 
-const logoutUser = asyncHandler(async function (req, res) {
+const logoutUser = asyncHandler(async function(req, res) {
   const { _id } = req.user;
   console.log(req.user);
   const user = await User.findByIdAndUpdate(
@@ -179,7 +179,7 @@ const logoutUser = asyncHandler(async function (req, res) {
     .json(new ApiResponse(200, {}, 'User logged out successfully'));
 });
 
-const refreshAccessToken = asyncHandler(async function (req, res) {
+const refreshAccessToken = asyncHandler(async function(req, res) {
   // TODO: access refresh token through cookies.
   const incomingRefreshToken =
     req.cookies?.accessToken || req.body.refreshToken;
@@ -230,7 +230,7 @@ const refreshAccessToken = asyncHandler(async function (req, res) {
   }
 });
 
-const changeCurrentPassword = asyncHandler(async function (req, res) {
+const changeCurrentPassword = asyncHandler(async function(req, res) {
   // TODO : Get current user details from request cookies using custom middleware.
   // * The above will take care of the case where the user is not logged in.
   const { _id } = req.user;
@@ -254,13 +254,13 @@ const changeCurrentPassword = asyncHandler(async function (req, res) {
     .json(new ApiResponse(200, {}, 'Password has been changed successfully'));
 });
 
-const getCurrentUser = asyncHandler(async function (req, res) {
+const getCurrentUser = asyncHandler(async function(req, res) {
   return res
     .status(200)
     .json(new ApiResponse(200, req.user, 'Current user fetched successfully'));
 });
 
-const updateAccountDetails = asyncHandler(async function (req, res) {
+const updateAccountDetails = asyncHandler(async function(req, res) {
   const { fullName, email } = req.body;
 
   if (!fullName || !email) {
@@ -284,7 +284,7 @@ const updateAccountDetails = asyncHandler(async function (req, res) {
     );
 });
 
-const updateUserAvatar = asyncHandler(async function (req, res) {
+const updateUserAvatar = asyncHandler(async function(req, res) {
   const newAvatarLocalPath = req.file?.path;
   if (!newAvatarLocalPath) {
     throw new ApiError(400, 'Avatar file is missing');
@@ -314,7 +314,7 @@ const updateUserAvatar = asyncHandler(async function (req, res) {
   // await deleteFromCloudinary(oldAvatar);
 });
 
-const updateUserCoverImage = asyncHandler(async function (req, res) {
+const updateUserCoverImage = asyncHandler(async function(req, res) {
   const newCoverImageLocalPath = req.file?.path;
   if (!newCoverImageLocalPath) {
     throw new ApiError(400, 'Cover Image file is missing');
@@ -351,7 +351,7 @@ const updateUserCoverImage = asyncHandler(async function (req, res) {
   // await deleteFromCloudinary(oldAvatar);
 });
 
-const getUserChannelProfile = asyncHandler(async function (req, res) {
+const getUserChannelProfile = asyncHandler(async function(req, res) {
   const { username } = req.params;
   if (!username?.trim()) {
     throw new ApiError(400, 'username is missing');
@@ -422,7 +422,7 @@ const getUserChannelProfile = asyncHandler(async function (req, res) {
     );
 });
 
-const getUserWatchHistory = asyncHandler(async function (req, res) {
+const getUserWatchHistory = asyncHandler(async function(req, res) {
   const user = await User.aggregate([
     {
       // _id:requ.user._id this is wrong because id given by mongoose has already converted to string
